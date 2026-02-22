@@ -481,12 +481,18 @@ end;
 
 function TGBSwaggerRTTIPropertyHelper.SwagDescription: string;
 var
+  LSwaggerDescription: SwagInfo;
   LSwaggerProp: SwagProp;
 begin
   Result := EmptyStr;
+  LSwaggerDescription := self.GetAttribute<SwagInfo> ;
+  if assigned(LSwaggerDescription) then
+    result := LSwaggerDescription.Description;
+
   LSwaggerProp := Self.GetAttribute<SwagProp>;
   if Assigned(LSwaggerProp) then
     Result := LSwaggerProp.description;
+
 end;
 
 function TGBSwaggerRTTIPropertyHelper.SwagMaxLength: Integer;
