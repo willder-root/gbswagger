@@ -91,6 +91,8 @@ type
 
     constructor Create(AName, ADescription, AEnumValues: string;
       AIsNumber: Boolean = False); overload;
+
+    constructor Create(AName, ADescription: string; AIsNumber: Boolean = False; ARequired: Boolean = True); overload;
   end;
 
   SwagParamHeader = class(SwagParam)
@@ -409,13 +411,25 @@ begin
     FSchema := SWAG_INTEGER;
 end;
 
-constructor SwagParamPath.Create(AName, ADescription: string; AIsNumber: Boolean);
+constructor SwagParamPath.Create(AName, ADescription, AEnumValues: string; AIsNumber: Boolean = False);
 begin
   FName := AName;
   FDescription := ADescription;
   FSchema := SWAG_STRING;
   FIsArray := False;
   FRequired := True;
+  FEnumValues := AEnumValues;
+  if AIsNumber then
+    FSchema := SWAG_INTEGER;
+end;
+
+constructor SwagParamPath.Create(AName, ADescription: string; AIsNumber: Boolean = False; ARequired: Boolean = True);
+begin
+  FName := AName;
+  FDescription := ADescription;
+  FSchema := SWAG_STRING;
+  FIsArray := False;
+  FRequired := ARequired;
   if AIsNumber then
     FSchema := SWAG_INTEGER;
 end;
