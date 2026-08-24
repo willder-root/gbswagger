@@ -90,7 +90,7 @@ type
       AIsNumber: Boolean = False); overload;
 
     constructor Create(AName, ADescription, AEnumValues: string;
-      AIsNumber: Boolean); overload;
+      AIsNumber: Boolean = False); overload;
 
     constructor Create(AName, ADescription: string; AIsNumber: Boolean; ARequired: Boolean); overload;
   end;
@@ -411,8 +411,7 @@ begin
     FSchema := SWAG_INTEGER;
 end;
 
-constructor SwagParamPath.Create(AName, ADescription: string;
-  AIsNumber: Boolean);
+constructor SwagParamPath.Create(AName, ADescription: string; AIsNumber: Boolean);
 begin
   FName := AName;
   FDescription := ADescription;
