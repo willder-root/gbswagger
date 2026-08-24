@@ -28,6 +28,14 @@ type
   SwagRequired = class(TCustomAttribute)
   end;
 
+  SwagInfo = class(TCustomAttribute)
+  private
+    FDescription: string;
+  public
+    constructor Create(ADescription: string); overload;
+    property Description: string read FDescription;
+  end;
+
   SwagIgnore = class(TCustomAttribute)
   private
     FIgnoreProperties: TArray<string>;
@@ -168,6 +176,13 @@ end;
 
 constructor SwagIgnore.Create;
 begin
+end;
+
+{ SwagDescription }
+
+constructor SwagInfo.Create(ADescription: string);
+begin
+  FDescription := ADescription;
 end;
 
 end.

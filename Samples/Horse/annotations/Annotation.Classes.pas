@@ -14,7 +14,9 @@ type
     FBirthdayDate: TDateTime;
     FLastUpdate: TDateTime;
   public
-    [SwagProp('user id', True)]
+    //[SwagProp('user id', True)]
+    [SwagInfo('user id')]
+    [SwagRequired]
     property Id: Double read FId write FId;
 
     [SwagProp('User Description', True)]

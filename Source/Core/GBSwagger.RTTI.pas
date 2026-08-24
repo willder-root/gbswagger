@@ -1,4 +1,4 @@
-unit GBSwagger.RTTI;
+ï»¿unit GBSwagger.RTTI;
 
 interface
 
@@ -57,8 +57,8 @@ type
     function IsTime: Boolean;
     function IsBoolean: Boolean;
 
-    // Vários ORMs trabalham com tipo Nullable
-    // Colaboração do Giorgio para essa compatibilidade
+    // Vï¿½rios ORMs trabalham com tipo Nullable
+    // Colaboraï¿½ï¿½o do Giorgio para essa compatibilidade
     function IsNullable: Boolean;
     function NullableType: string;
 
@@ -481,12 +481,18 @@ end;
 
 function TGBSwaggerRTTIPropertyHelper.SwagDescription: string;
 var
+  LSwaggerDescription: SwagInfo;
   LSwaggerProp: SwagProp;
 begin
   Result := EmptyStr;
+  LSwaggerDescription := self.GetAttribute<SwagInfo> ;
+  if assigned(LSwaggerDescription) then
+    result := LSwaggerDescription.Description;
+
   LSwaggerProp := Self.GetAttribute<SwagProp>;
   if Assigned(LSwaggerProp) then
     Result := LSwaggerProp.description;
+
 end;
 
 function TGBSwaggerRTTIPropertyHelper.SwagMaxLength: Integer;
@@ -773,7 +779,10 @@ begin
     if (Assigned(LSwaggerRequired)) then
     begin
       SetLength(Result, Length(Result) + 1);
-      Result[Length(Result) - 1] := LProp.Name;
+      case TGBSwaggerModelConfig.GetInstance(nil).CaseDefinition of
+        cdLower: Result[Length(Result) - 1]  := LProp.Name.ToLower;
+        cdUpper: Result[Length(Result) - 1]  := LProp.Name.ToUpper;
+      end;
       Continue;
     end;
 
